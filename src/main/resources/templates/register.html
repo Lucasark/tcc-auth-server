@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aluno Presente</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+<div class="pageContent">
+    <div class="genericContainer">
+        <h3>Nova conta</h3>
+        <form class="formContent" th:action="@{/register}" th:object="${registerForm}" method="post">
+            <label for="input_name">Nome:</label>
+            <input type="text" id="input_name" placeholder="Aluno da Silva Ferreira" class="inputText" name="username">
+            <!--            <span class="msgError" id="name_error">Digite seu nome!</span>-->
+            <br/>
+            <label for="input_email">E-mail:</label>
+            <input type="text" id="input_email" placeholder="email@id.uff.br" class="inputText" name="email">
+            <!--            <span class="msgError" id="email_error">Digite um e-mail válido!</span>-->
+            <br/>
+            <label for="input_password">Senha:</label>
+            <input type="password" id="input_password" placeholder="Senha123" class="inputText" name="password">
+            <!--            <span class="msgError" id="password_error">Digite sua senha!</span>-->
+            <br/>
+            <label for="input_confirmation_password">Confirmar senha:</label>
+            <input type="password" id="input_confirmation_password" placeholder="Senha123" class="inputText"
+                   name="passwordConfirmation">
+            <!--            <div class="error" th:if="${param.error}">A senha e a confirmação de senha devem ser iguais.</div>-->
+            <br/>
+            <div class="footerInfos">
+                <input class="loginBtn" type="submit" value="Cadastrar">
+                <a th:href="@{/register/back}">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style th:inline="css" media="screen, print">
+    @font-face {
+        font-family: "Bold";
+        src: local("Nunito-Bold"), url("[(@{/assets/fonts/Nunito-Bold.ttf})]") format("truetype");
+    }
+
+    @font-face {
+        font-family: "Normal";
+        src: local("Nunito-Regular"), url("[(@{/assets/fonts/Nunito-Regular.ttf})]") format("truetype");
+    }
+</style>
+
+</body>
+
+</html>

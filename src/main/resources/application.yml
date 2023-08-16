@@ -1,0 +1,48 @@
+server:
+  port: 9001
+
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
+
+spring:
+#  security:
+#    oauth2:
+#      authorizationserver:
+#        client:
+#          client:
+#            registration:
+#              client-id: "client"
+#              client-secret: "$2a$10$1CJ/GQo7zckgxbsmjdJELOACz8dNJhn.BtN/5We6WWebBS8txezwa"
+#              client-authentication-methods:
+#                - "client_secret_basic"
+#              authorization-grant-types:
+#                - "authorization_code"
+#                - "refresh_token"
+#              redirect-uris:
+#                - "http://test"
+#              scopes:
+#                - "openid"
+#                - "profile"
+#                - "user.read"
+#                - "user.write"
+#            require-authorization-consent: true
+#            require-proof-key: true
+  data:
+    mongodb:
+      authentication-database: "admin"
+      database: "AUTHORIZATION"
+      port: 27017
+      host: "localhost"
+      auto-index-creation: true
+
+  mail:
+    host: "smtp.gmail.com"
+    port: 587
+    username: "email"
+    password: "password"
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
