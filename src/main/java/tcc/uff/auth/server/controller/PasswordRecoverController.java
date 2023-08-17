@@ -35,18 +35,12 @@ public class PasswordRecoverController {
     private final PasswordEncoder encoder;
 
     @GetMapping
-    public String getPasswordRecover(@RequestHeader(value = HttpHeaders.REFERER, required = false) final String referrer) {
+    public String getPasswordRecover() {
         return "password-recover";
     }
 
     @PostMapping
     public String registerSubmit(@ModelAttribute RegisterForm form) {
         return "sucess-register";
-    }
-
-    @GetMapping(path = "/back")
-    public String back(HttpServletRequest request) {
-        var a = (DefaultSavedRequest) request.getSession().getAttribute(BACK_PATH_LOGIN);
-        return "redirect:" + a.getRedirectUrl();
     }
 }

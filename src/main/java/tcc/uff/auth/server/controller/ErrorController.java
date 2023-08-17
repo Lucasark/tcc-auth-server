@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ErrorController {
 
     @GetMapping
-    public String error() {
+    public void error() {
         log.debug("aqui");
-        return "login";
     }
 
 }
