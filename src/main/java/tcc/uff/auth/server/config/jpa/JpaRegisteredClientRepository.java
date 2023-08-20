@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import tcc.uff.auth.server.model.document.secury.ClientDocument;
-import tcc.uff.auth.server.repository.ClientRepository;
+import tcc.uff.auth.server.repository.auth.ClientRepository;
 
 import java.util.ArrayList;
 import java.util.List;

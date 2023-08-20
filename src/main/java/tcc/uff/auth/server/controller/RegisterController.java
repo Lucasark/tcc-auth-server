@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import tcc.uff.auth.server.model.web.RegisterForm;
-import tcc.uff.auth.server.repository.AuthorizationConsentRepository;
-import tcc.uff.auth.server.repository.AuthorizationRepository;
-import tcc.uff.auth.server.repository.ClientRepository;
-import tcc.uff.auth.server.repository.UserRepository;
+import tcc.uff.auth.server.repository.auth.AuthorizationConsentRepository;
+import tcc.uff.auth.server.repository.auth.AuthorizationRepository;
+import tcc.uff.auth.server.repository.auth.ClientRepository;
+import tcc.uff.auth.server.repository.auth.UserRepository;
 import tcc.uff.auth.server.service.interfaces.EmailService;
 
 @Slf4j

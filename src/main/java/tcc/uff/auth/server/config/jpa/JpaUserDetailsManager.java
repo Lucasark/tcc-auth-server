@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
-import tcc.uff.auth.server.repository.UserRepository;
+import tcc.uff.auth.server.repository.auth.UserRepository;
 
 import java.util.Collection;
 import java.util.HashSet;

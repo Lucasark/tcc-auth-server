@@ -20,10 +20,10 @@
     <img alt="logo" width="120px" th:src="@{/assets/images/logoBlue.png}"/>
     <h3>Faça seu login</h3>
     <div class="error" th:if="${param.error}">
-        Invalid username and password.
+        Usuario não encontrado!
     </div>
     <div class="error" th:if="${param.logout}">
-        You have been logged out.
+        Deslogado!
     </div>
     <p th:if="${loginError}" class="error">Wrong user or password</p>
     <form class="formContent" th:action="@{/login}" method="post">

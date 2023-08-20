@@ -1,4 +1,4 @@
-package tcc.uff.auth.server.repository;
+package tcc.uff.auth.server.repository.auth;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;

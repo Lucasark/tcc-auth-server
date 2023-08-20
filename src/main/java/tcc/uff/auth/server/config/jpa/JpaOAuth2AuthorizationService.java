@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import tcc.uff.auth.server.model.document.secury.AuthorizationDocument;
-import tcc.uff.auth.server.repository.AuthorizationRepository;
+import tcc.uff.auth.server.repository.auth.AuthorizationRepository;
 
 import java.time.Instant;
 import java.util.Map;
