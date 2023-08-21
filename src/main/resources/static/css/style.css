@@ -155,7 +155,6 @@ h1, h3 {
 
 /* Classes de erros dupl */
 .msgError {
-    display: none;
     color: rgb(171, 11, 11);
     font-size: 12px;
     margin-top: 5px;

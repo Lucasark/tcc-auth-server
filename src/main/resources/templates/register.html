@@ -15,19 +15,20 @@
         <form class="formContent" th:action="@{/register}" th:object="${registerForm}" method="post">
             <label for="input_name">Nome:</label>
             <input type="text" id="input_name" placeholder="Aluno da Silva Ferreira" class="inputText" name="username">
-            <span class="msgError" id="name_error">Digite seu nome!</span>
+            <span th:if="${#fields.hasErrors('username')}" class="msgError" id="username_error" th:errors="*{username}"></span>
             <br/>
             <label for="input_email">E-mail:</label>
             <input type="text" id="input_email" placeholder="email@id.uff.br" class="inputText" name="email">
-            <span class="msgError" id="email_error">Digite um e-mail válido!</span>
+            <span th:if="${#fields.hasErrors('email')}" class="msgError" id="email_error" th:errors="*{email}"></span>
             <br/>
             <label for="input_password">Senha:</label>
             <input type="password" id="input_password" placeholder="Senha123" class="inputText" name="password">
-            <span class="msgError" id="password_error">Digite sua senha!</span>
+            <span th:if="${#fields.hasErrors('password')}" class="msgError" id="password_error" th:errors="*{password}"></span>
             <br/>
             <label for="input_confirmation_password">Confirmar senha:</label>
             <input type="password" id="input_confirmation_password" placeholder="Senha123" class="inputText" name="passwordConfirmation">
-            <div class="error" th:if="${param.error}">A senha e a confirmação de senha devem ser iguais.</div>
+            <span th:if="${confirmationPasswordMatch}" class="msgError" id="confirmation_password_error_conflito" th:text="${confirmationPasswordMatch}"></span>
+            <span th:if="${#fields.hasErrors('passwordConfirmation')}" class="msgError" id="confirmation_password_error" th:errors="*{passwordConfirmation}"></span>
             <br/>
             <div class="footerInfos">
                 <input class="loginBtn" type="submit" value="Cadastrar">
