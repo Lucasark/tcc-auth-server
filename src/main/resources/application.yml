@@ -14,11 +14,13 @@ spring:
     mongodb:
       auth:
         uri: ${AUTH_URI}
+        auto-index-creation: true
       resource:
         uri: ${RESOURCE_URI}
+        auto-index-creation: true
 
   mail:
-    host: "smtp.gmail.com"
+    host: smtp.gmail.com
     port: 587
     username: ${EMAIL_USER}
     password: ${EMAIL_PASSWORD}
