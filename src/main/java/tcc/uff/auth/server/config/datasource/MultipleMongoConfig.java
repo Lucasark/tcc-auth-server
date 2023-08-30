@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
+import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 
 @Configuration
 public class MultipleMongoConfig {
@@ -26,12 +27,12 @@ public class MultipleMongoConfig {
 
     @Primary
     @Bean(name = "authMongoTemplate")
-    public MongoTemplate authMongoTemplate() {
-        return new MongoTemplate(authMongoDatabaseFactory(getAuthProps()));
+    public MongoTemplate authMongoTemplate(MappingMongoConverter converter) {
+        return new MongoTemplate(authMongoDatabaseFactory(getAuthProps()), converter);
     }
 
     @Bean(name = "resourceMongoTemplate")
-    public MongoTemplate resourceMongoTemplate() {
+    public MongoTemplate resourceMongoTemplate(MappingMongoConverter converter) {
         return new MongoTemplate(resourceMongoDatabaseFactory(getResourceProps()));
     }
 

@@ -21,7 +21,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class UserResourceDocument {
 
     @Id
-    private String username;
+    private String email;
 
-    private Long test;
+    private String name;
 }

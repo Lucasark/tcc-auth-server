@@ -15,13 +15,16 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TokenValidationDocument implements Serializable {
+public class TokenValidation implements Serializable {
 
-    private String token;
+    private String value;
 
     private LocalDateTime expiryOn;
 
     private LocalDateTime enabledIn;
+
+    @Builder.Default
+    private Long attempt = 0L;
 
     @Builder.Default
     private Boolean enabled = Boolean.FALSE;

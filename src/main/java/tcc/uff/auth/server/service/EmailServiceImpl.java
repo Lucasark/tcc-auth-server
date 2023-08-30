@@ -17,14 +17,13 @@ public class EmailServiceImpl implements EmailService {
     private final JavaMailSender javaMailSender;
 
     @Override
-    public void sendConfirmation(String to) throws MessagingException {
+    public void sendToken(String to, String token) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
 
         message.setRecipients(Message.RecipientType.TO, to);
-        message.setSubject("Test email from Spring");
+        message.setSubject("Concluir cadastro no Aluno Presente!");
 
-        String htmlContent = "<h1>This is a test Spring Boot email</h1>" +
-                "<p>It can contain <strong>HTML</strong> content.</p>";
+        String htmlContent = String.format("<h1> Token para confirmar cadastro </h1 <p>Token: <strong> %s </strong> !</p>", token);
         message.setContent(htmlContent, "text/html; charset=utf-8");
 
         javaMailSender.send(message);

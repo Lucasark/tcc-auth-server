@@ -19,6 +19,7 @@
             <br/>
             <label for="input_email">E-mail:</label>
             <input type="text" id="input_email" placeholder="email@id.uff.br" class="inputText" name="email">
+            <span th:if="${duplicatedEmail}" class="msgError" id="duplicated_email_error" th:text="${duplicatedEmail}"></span>
             <span th:if="${#fields.hasErrors('email')}" class="msgError" id="email_error" th:errors="*{email}"></span>
             <br/>
             <label for="input_password">Senha:</label>

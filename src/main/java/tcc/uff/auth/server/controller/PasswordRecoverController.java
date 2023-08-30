@@ -35,6 +35,6 @@ public class PasswordRecoverController {
 
     @PostMapping
     public String registerSubmit(@ModelAttribute RegisterForm form) {
-        return "sucess-register";
+        return "success-register";
     }
 }
