@@ -1,5 +1,7 @@
 server:
   port: 9001
+  servlet:
+    context-path: /v1/auth
 
 logging:
   level:
