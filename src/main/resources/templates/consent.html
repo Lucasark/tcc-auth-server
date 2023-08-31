@@ -5,13 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aluno Presente</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <script>
-        function cancelConsent() {
-            document.consent_form.reset();
-            document.consent_form.submit();
-        }
-
-    </script>
 </head>
 
 
@@ -26,7 +19,7 @@
                 <p>
                     A aplicação
                     <span class="fw-bold text-primary" th:text="${clientId}"></span>
-                    deseja acessar sua conta
+                    deseja acessar a sua conta
                     <span class="fw-bold" th:text="${principalName}"></span>
                 </p>
             </div>
@@ -44,7 +37,7 @@
             <div class="col text-center">
                 <p>
                     As seguintes permições foram solicitadas.<br/>
-                    Valide-as e de seu consentimento de uso.
+                    Valide-as e de o seu consentimento de uso.
                 </p>
             </div>
         </div>
@@ -56,12 +49,14 @@
                 <input th:if="${userCode}" type="hidden" name="user_code" th:value="${userCode}">
 
                 <div th:each="scope: ${scopes}" class="form-check py-1">
-                    <input class="form-check-input"
-                           style="float: none"
-                           type="checkbox"
-                           name="scope"
-                           th:value="${scope.scope}"
-                           th:id="${scope.scope}">
+                    <label>
+                        <input class="form-check-input"
+                               style="float: none"
+                               type="checkbox"
+                               name="scope"
+                               th:value="${scope.scope}"
+                               th:id="${scope.scope}">
+                    </label>
                     <label class="form-check-label fw-bold px-2" th:for="${scope.scope}"
                            th:text="${scope.scope}"></label>
                     <p class="text-primary" th:text="${scope.description}"></p>
@@ -71,12 +66,14 @@
                     Você já concedeu os seguintes recursos:
                 </p>
                 <div th:each="scope: ${previouslyApprovedScopes}" class="form-check py-1">
-                    <input class="form-check-input"
-                           style="float: none"
-                           type="checkbox"
-                           th:id="${scope.scope}"
-                           disabled
-                           checked>
+                    <label>
+                        <input class="form-check-input"
+                               style="float: none"
+                               type="checkbox"
+                               th:id="${scope.scope}"
+                               disabled
+                               checked>
+                    </label>
                     <label class="form-check-label fw-bold px-2" th:for="${scope.scope}"
                            th:text="${scope.scope}"></label>
                     <p class="text-primary" th:text="${scope.description}"></p>
@@ -98,7 +95,7 @@
                 <p>
                     <small>
                         Seu concentimento é necessário.<br/>
-                        Se você não aprova, clique em "Cancelar", nesse caso nenhum informação será compartilhada.
+                        Se você não aprova, clique em "Cancelar", nesse caso nenhuma informação será compartilhada.
                     </small>
                 </p>
             </div>
