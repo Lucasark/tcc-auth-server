@@ -116,6 +116,12 @@ public class RegistrationServiceImpl implements RegistrationService {
                     if (timeout.isBefore(now)) {
                         error = "Novo token gerado!";
 
+                        try {
+                            emailService.sendToken(form.getEmail(), token);
+                        } catch (MessagingException e) {
+                            throw new BusinessException(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.toString(), "Não foi possivel enviar Email", e.getMessage());
+                        }
+
                         user.get().setActivation(TokenValidation.builder()
                                 .expiryOn(now.plusMinutes(10))
                                 .value(token)

@@ -4,9 +4,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class RoleEnum {
+public class Roles {
 
-    public static final String ROLE_ADMIN = "ADMIN";
-    public static final String ROLE_STAFF = "STAFF";
+    public static final String ADMIN = "ADMIN";
+    public static final String STAFF = "STAFF";
 
 }
