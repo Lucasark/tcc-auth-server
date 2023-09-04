@@ -4,6 +4,7 @@ import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -24,7 +25,9 @@ import org.springframework.security.oauth2.server.authorization.token.JwtEncodin
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.context.SecurityContextHolderFilter;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
+import tcc.uff.auth.server.repository.auth.LoggerRepository;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -38,6 +41,10 @@ import static tcc.uff.auth.server.config.ContantsConfig.CUSTOM_CONSENT_PAGE_URI;
 
 @Configuration
 public class SecurityConfig {
+
+    @Autowired
+    private LoggerRepository loggerRepository;
+
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SecurityFilterChain authorizationServerSecurityFilterChain(
@@ -47,6 +54,7 @@ public class SecurityConfig {
     ) throws Exception {
 
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+
 
         http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
                 .authorizationEndpoint(authorizationEndpoint ->
@@ -60,6 +68,7 @@ public class SecurityConfig {
                                 new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
                         )
                 )
+                .addFilterBefore(new ContentTraceFilter(loggerRepository), SecurityContextHolderFilter.class)
                 .oauth2ResourceServer(oauth2ResourceServer ->
                         oauth2ResourceServer.jwt(Customizer.withDefaults()));
 
