@@ -119,23 +119,26 @@ public class SecurityConfig {
         return AuthorizationServerSettings.builder().build();
     }
 
-    @Bean
-    OAuth2TokenCustomizer<JwtEncodingContext> tokenCustomizer() {
-        //APENAS PARA TESTES
-        return context -> {
-            Authentication principal = context.getPrincipal();
-            if (context.getTokenType().getValue().equals("id_token")) {
-                context.getClaims().claim("Test", "Test Id Token");
-            }
-            if (context.getTokenType().getValue().equals("access_token")) {
-                context.getClaims().claim("Test", "Test Access Token");
-                Set<String> authorities = principal.getAuthorities().stream()
-                        .map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
-                context.getClaims().claim("authorities", authorities)
-                        .claim("user", principal.getName());
-            }
-        };
-    }
+    //TODO: Para o Lucas do futuro:
+    //Aqui é onde vai os bregues do JWT, mas se colocar isso, o padrao morre, ai tem que fazer em todos os resources o treco de Security
+
+//    @Bean
+//    OAuth2TokenCustomizer<JwtEncodingContext> tokenCustomizer() {
+//        //APENAS PARA TESTES
+//        return context -> {
+//            Authentication principal = context.getPrincipal();
+//            if (context.getTokenType().getValue().equals("id_token")) {
+//                context.getClaims().claim("Test", "Test Id Token");
+//            }
+//            if (context.getTokenType().getValue().equals("access_token")) {
+//                context.getClaims().claim("Test", "Test Access Token");
+//                Set<String> authorities = principal.getAuthorities().stream()
+//                        .map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
+//                context.getClaims().claim("authorities", authorities)
+//                        .claim("user", principal.getName());
+//            }
+//        };
+//    }
 
     @Bean
     JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
