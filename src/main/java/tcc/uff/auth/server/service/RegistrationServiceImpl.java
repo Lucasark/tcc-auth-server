@@ -27,6 +27,7 @@ import static java.util.Objects.isNull;
 @Service
 @RequiredArgsConstructor
 public class RegistrationServiceImpl implements RegistrationService {
+
     private final ResourceRepository resourceRepository;
     private static final Integer ATTEMPT = 3;
 
@@ -53,10 +54,19 @@ public class RegistrationServiceImpl implements RegistrationService {
 
         userRepository.save(user);
 
-        var resource = UserResourceDocument.builder()
-                .email(form.getEmail())
-                .name(form.getUsername())
-                .build();
+        UserResourceDocument resource;
+
+        var userOp = resourceRepository.findByName(form.getUsername());
+
+        if (userOp.isEmpty()) {
+            resource = UserResourceDocument.builder()
+                    .email(form.getEmail())
+                    .name(form.getUsername())
+                    .build();
+        } else {
+            resource = userOp.get();
+            resource.setName(form.getUsername());
+        }
 
         resourceRepository.save(resource);
 
