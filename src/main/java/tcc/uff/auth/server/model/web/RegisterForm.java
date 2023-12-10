@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class RegisterForm {
     @Size(min = 2, message = "Nome deverá ter no minimo 2 letras")
     private String username;
 
+    @Getter(AccessLevel.NONE)
     @NotBlank(message = "Email deverá estar preenchido")
     @Email(message = "Email inválido")
     private String email;
@@ -29,4 +31,8 @@ public class RegisterForm {
 
     @NotBlank(message = "Confirmação de email deverá estar preenchido")
     private String passwordConfirmation;
+
+    public String getEmail() {
+        return email.toLowerCase();
+    }
 }
