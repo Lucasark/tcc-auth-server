@@ -56,7 +56,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
         UserResourceDocument resource;
 
-        var userOp = resourceRepository.findByName(form.getUsername());
+        var userOp = resourceRepository.findByEmail(form.getEmail());
 
         if (userOp.isEmpty()) {
             resource = UserResourceDocument.builder()
