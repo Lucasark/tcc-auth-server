@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Optional;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,6 +22,9 @@ public class TokenForm {
     private String token;
 
     public String getEmail() {
-        return email.toLowerCase();
+        if(Optional.ofNullable(email).isPresent()){
+            return email.toLowerCase();
+        }
+        return null;
     }
 }
