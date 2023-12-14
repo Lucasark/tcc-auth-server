@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Optional;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -33,6 +35,9 @@ public class RegisterForm {
     private String passwordConfirmation;
 
     public String getEmail() {
-        return email.toLowerCase();
+        if (Optional.ofNullable(email).isPresent()) {
+            return email.toLowerCase();
+        }
+        return null;
     }
 }
