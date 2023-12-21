@@ -22,7 +22,7 @@ public class JpaUserDetailsManager implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        var user = userRepository.findByUsername(username)
+        var user = userRepository.findByUsername(username.toLowerCase())
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario não encontrado"));
 
         Collection<GrantedAuthority> authoriies = new HashSet<>();
