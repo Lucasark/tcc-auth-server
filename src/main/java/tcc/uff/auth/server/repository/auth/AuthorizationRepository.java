@@ -23,6 +23,8 @@ public interface AuthorizationRepository extends MongoRepository<AuthorizationDo
 
     Optional<AuthorizationDocument> findByDeviceCodeValue(String deviceCode);
 
+    void deleteAllByPrincipalName(String principalName);
+
     //TODO: FAZER A QUERY
 //    @Query("select a from Authorization a where a.state = :token" +
 //            " or a.authorizationCodeValue = :token" +

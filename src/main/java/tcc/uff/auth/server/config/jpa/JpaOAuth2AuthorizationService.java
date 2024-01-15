@@ -49,6 +49,7 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
     @Override
     public void save(OAuth2Authorization authorization) {
         Assert.notNull(authorization, "authorization cannot be null");
+        authorizationRepository.deleteAllByPrincipalName(authorization.getPrincipalName());
         this.authorizationRepository.save(toEntity(authorization));
     }
 
