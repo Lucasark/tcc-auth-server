@@ -19,6 +19,9 @@ public class TokenValidation implements Serializable {
 
     private String value;
 
+    @Builder.Default
+    private LocalDateTime lastAttempt = LocalDateTime.now();
+
     private LocalDateTime expiryOn;
 
     private LocalDateTime enabledIn;

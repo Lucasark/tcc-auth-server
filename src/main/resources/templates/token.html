@@ -14,8 +14,9 @@
         <div class="error" th:if="${notActive}">
             Já existe uma conta criada!
         </div>
-        <h3>Complete seu registro</h3>
-        <form class="formContent" th:action="@{/register/token?email={email}(email=${email})}" th:object="${tokenForm}"
+        <h3 th:utext="${header}"></h3>
+        <p>Insira o Token enviado para o e-mail informado!</p>
+        <form class="formContent" th:action="@{/{path}/token?email={email}(email=${email},path=${path})}" th:object="${tokenForm}"
               method="post">
             <label for="input_token">Token:</label>
             <input type="text" id="input_token" placeholder="XXXXX" class="inputText" name="token">
