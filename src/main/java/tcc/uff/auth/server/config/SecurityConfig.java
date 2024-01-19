@@ -83,6 +83,7 @@ public class SecurityConfig {
                 .ignoring()
                 .requestMatchers("/webjars/**",
                         "/images/**",
+                        "/js/**",
                         "/css/**",
                         "/assets/**",
                         "/favicon.ico",

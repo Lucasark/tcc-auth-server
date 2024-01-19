@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aluno Presente</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/document.js}"></script>
+    <link rel="icon" type="image/ico" th:href="@{favicon.ico}"/>
 </head>
 
 <body>
@@ -17,17 +19,23 @@
         <h3 th:utext="${header}"></h3>
         <p>Insira o Token enviado para o e-mail informado!</p>
         <form class="formContent" th:action="@{/{path}/token?email={email}(email=${email},path=${path})}" th:object="${tokenForm}"
-              method="post">
+              method="post" onsubmit="submitForm()">
             <label for="input_token">Token:</label>
             <input type="text" id="input_token" placeholder="XXXXX" class="inputText" name="token">
             <span th:if="${validationException}" class="msgError" id="confirmation_error" th:text="${validationException}"></span>
             <span th:if="${#fields.hasErrors('token')}" class="msgError" id="token_error" th:errors="*{token}"></span>
             <br/>
             <div class="footerInfos">
-                <input class="loginBtn" type="submit" value="Validar!">
+                <input class="loginBtn" type="submit" value="Validar!" id="actionButton">
                 <a th:href="@{/login}">Voltar</a>
             </div>
         </form>
+
+        <div id="myModal" class="modal">
+            <div id="loading-container">
+                <div id="loading-indicator"></div>
+            </div>
+        </div>
     </div>
 </div>
 

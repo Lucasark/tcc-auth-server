@@ -17,13 +17,18 @@ public class EmailServiceImpl implements EmailService {
     private final JavaMailSender javaMailSender;
 
     @Override
-    public void sendToken(String to, String token) throws MessagingException {
+    public void sendToken(String to, String token, String subject) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
 
         message.setRecipients(Message.RecipientType.TO, to);
-        message.setSubject("Concluir cadastro no Aluno Presente!");
+        message.setSubject(subject);
 
-        String htmlContent = String.format("<h1> Token para confirmar cadastro </h1 <p>Token: <strong> %s </strong> !</p>", token);
+        String htmlContent = String.format(
+                " " +
+                        "<h1> Token de Confirmação </h1>" +
+                        "<p>Token: <strong> %s </strong> !</p>",
+                token
+        );
         message.setContent(htmlContent, "text/html; charset=utf-8");
 
         javaMailSender.send(message);

@@ -24,13 +24,12 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class RegistrationServiceImpl implements RegistrationService {
 
-    private final ResourceRepository resourceRepository;
-    private static final Integer ATTEMPT = 3;
+    private static final String SUBJECT = "Concluir cadastro no Aluno Presente!";
 
+    private final ResourceRepository resourceRepository;
     private final EmailService emailService;
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
-
 
     @Override
     public void registerByForm(RegisterForm form) {
@@ -67,7 +66,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         resourceRepository.save(resource);
 
         try {
-            emailService.sendToken(form.getEmail(), token);
+            emailService.sendToken(form.getEmail(), token, SUBJECT);
         } catch (MessagingException e) {
             userRepository.delete(user);
             resourceRepository.delete(resource);

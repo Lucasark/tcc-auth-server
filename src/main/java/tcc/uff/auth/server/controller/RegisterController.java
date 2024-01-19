@@ -43,7 +43,7 @@ public class RegisterController {
         }
 
         if (!form.getPassword().equals(form.getPasswordConfirmation())) {
-            model.addAttribute("confirmationPasswordMatch", "Email não são iguais!");
+            model.addAttribute("confirmationPasswordMatch", "Senhas não são iguais!");
             return "register";
         }
 
@@ -82,7 +82,7 @@ public class RegisterController {
         var confirmation = tokenService.confirmTokenByForm(form);
 
         if (Boolean.TRUE.equals(confirmation.getSuccess())) {
-            return "success-register";
+            return "success";
         }
 
         model.addAttribute("header", "Complete seu Cadastro");

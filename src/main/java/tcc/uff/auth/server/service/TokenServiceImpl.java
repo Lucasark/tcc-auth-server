@@ -22,10 +22,12 @@ import static java.util.Objects.isNull;
 @Service
 @RequiredArgsConstructor
 public class TokenServiceImpl implements TokenService {
-
+    private static final String SUBJECT_REGISTRATION = "Concluir cadastro no Aluno Presente!";
+    private static final String SUBJECT_RECOVER = "Token para validar!";
     private static final Integer ATTEMPT = 5;
 
     private final EmailService emailService;
+
     private final UserRepository userRepository;
 
     @Override
@@ -39,7 +41,7 @@ public class TokenServiceImpl implements TokenService {
             //Já está ativo
             if (Boolean.FALSE.equals(user.get().getActivation().getEnabled())) {
 
-                var error = fluxToken(user.get().getActivation(), form.getToken(), form.getEmail());
+                var error = fluxToken(user.get().getActivation(), form.getToken(), form.getEmail(), SUBJECT_REGISTRATION);
 
                 userRepository.save(user.get());
                 return ConfirmationDTO.builder().success(isNull(error) ? Boolean.TRUE : Boolean.FALSE).errorDescription(error).build();
@@ -53,24 +55,27 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public ConfirmationDTO confirmTokenByFormPR(TokenForm form) {
+    public ConfirmationDTO confirmTokenByFormRecover(TokenForm form) {
         var user = userRepository.findByUsername(form.getEmail());
 
         //Existe User
         if (user.isPresent()) {
 
-            var error = fluxToken(user.get().getRecover(), form.getToken(), form.getEmail());
+            var error = fluxToken(user.get().getRecover(), form.getToken(), form.getEmail(), SUBJECT_RECOVER);
 
             userRepository.save(user.get());
 
-            return ConfirmationDTO.builder().success(isNull(error) ? Boolean.TRUE : Boolean.FALSE).errorDescription(error).build();
+            return ConfirmationDTO.builder().success(isNull(error) ? Boolean.TRUE : Boolean.FALSE)
+                    .errorDescription(error)
+                    .value(user.get().getRecover().getId().toString())
+                    .build();
 
         } else {
             return ConfirmationDTO.builder().errorDescription("Conta não encontrada!").build();
         }
     }
 
-    private String fluxToken(TokenValidation tokenValidation, String token, String email) {
+    private String fluxToken(TokenValidation tokenValidation, String token, String email, String subject) {
 
         var now = LocalDateTime.now();
 
@@ -99,7 +104,7 @@ public class TokenServiceImpl implements TokenService {
                 tokenValidation.setExpiryOn(now.plusMinutes(10));
                 tokenValidation.setValue(tokenNew);
 
-                sendToken(email, tokenNew);
+                sendToken(email, tokenNew, subject);
                 return "Token Expirado, gerando um novo!";
             }
         } else {
@@ -110,7 +115,7 @@ public class TokenServiceImpl implements TokenService {
                 tokenValidation.setValue(tokenNew);
                 tokenValidation.setAttempt(0L);
 
-                sendToken(email, tokenNew);
+                sendToken(email, tokenNew, subject);
                 return "Novo token gerado!";
             } else {
                 return "Muitas tentativas, aguarde alguns minutos!";
@@ -118,9 +123,9 @@ public class TokenServiceImpl implements TokenService {
         }
     }
 
-    private void sendToken(String email, String token) {
+    private void sendToken(String email, String token, String subject) {
         try {
-            emailService.sendToken(email, token);
+            emailService.sendToken(email, token, subject);
         } catch (MessagingException e) {
             throw new BusinessException(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.toString(), "Não foi possivel enviar Email", e.getMessage());
         }
@@ -133,13 +138,13 @@ public class TokenServiceImpl implements TokenService {
 
         if (user.isPresent()) {
 
-            fluxResend(user.get().getActivation(), user.get().getActivation().getValue(), email);
+            fluxResend(user.get().getActivation(), user.get().getActivation().getValue(), email, SUBJECT_REGISTRATION);
 
             userRepository.save(user.get());
         }
     }
 
-    private void fluxResend(TokenValidation tokenValidation, String token, String email) {
+    private void fluxResend(TokenValidation tokenValidation, String token, String email, String subject) {
         var now = LocalDateTime.now();
 
         var tokenNew = GenerateString.generateRandomString(5);
@@ -152,7 +157,7 @@ public class TokenServiceImpl implements TokenService {
             tokenValidation.setExpiryOn(now.plusMinutes(10));
             tokenValidation.setAttempt(tokenValidation.getAttempt() + 1);
 
-            sendToken(email, tokenNew);
+            sendToken(email, tokenNew, subject);
         } else {
             log.warn("Muitas tentativas de envio de token");
         }

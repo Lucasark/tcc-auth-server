@@ -7,8 +7,7 @@ public interface TokenService {
 
     ConfirmationDTO confirmTokenByForm(TokenForm form);
 
-    //TODO: Juntar com o de cima!
-    ConfirmationDTO confirmTokenByFormPR(TokenForm form);
+    ConfirmationDTO confirmTokenByFormRecover(TokenForm form);
 
     void resendToken(String email);
 }
