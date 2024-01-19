@@ -13,26 +13,29 @@
 <body>
 <div class="pageContent">
     <div class="genericContainer">
-        <div class="error" th:if="${notFound}">
-            Nenhuma conta encontrada!
+        <div class="error" th:if="${notActive}">
+            Já existe uma conta criada!
         </div>
-        <h3>Recuperação de conta</h3>
+        <h3 th:utext="${header}"></h3>
+        <p>Insira o Token enviado para o e-mail informado!</p>
+        <form class="formContent" th:action="@{/{path}/token?email={email}(email=${email},path=${path})}" th:object="${tokenForm}"
+              method="post" onsubmit="submitForm()">
+            <label for="input_token">Token:</label>
+            <input type="text" id="input_token" placeholder="XXXXX" class="inputText" name="token">
+            <span th:if="${validationException}" class="msgError" id="confirmation_error" th:text="${validationException}"></span>
+            <span th:if="${#fields.hasErrors('token')}" class="msgError" id="token_error" th:errors="*{token}"></span>
+            <br/>
+            <div class="footerInfos">
+                <input class="loginBtn" type="submit" value="Validar!" id="actionButton">
+                <a th:href="@{/login}">Voltar</a>
+            </div>
+        </form>
+
         <div id="myModal" class="modal">
             <div id="loading-container">
                 <div id="loading-indicator"></div>
             </div>
         </div>
-        <form class="formContent" th:action="@{/password-recover}" th:object="${passwordRecoverForm}" method="post"
-              onsubmit="submitForm()">
-            <p>Digite seu e-mail e vamos enviar um token de validação para o email cadastrado</p>
-            <label for="input_email">E-mail</label>
-            <input type="text" id="input_email" placeholder="email@id.uff.br" class="inputText" name="email">
-            <span th:if="${#fields.hasErrors('email')}" class="msgError" id="email_error" th:errors="*{email}"></span>
-            <div class="footerInfos">
-                <input class="loginBtn" type="submit" value="Recuperar senha!" id="actionButton">
-                <a th:href="@{/login}">Voltar</a>
-            </div>
-        </form>
     </div>
 </div>
 
@@ -47,6 +50,7 @@
         src: local("Nunito-Regular"), url("[(@{/assets/fonts/Nunito-Regular.ttf})]") format("truetype");
     }
 </style>
+
 </body>
 
 </html>

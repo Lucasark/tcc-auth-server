@@ -15,6 +15,8 @@ public class ConfirmationDTO {
 
     private String errorDescription;
 
+    private String value;
+
     @Builder.Default
     private Boolean success = Boolean.FALSE;
 }

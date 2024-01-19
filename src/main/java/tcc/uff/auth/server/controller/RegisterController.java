@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import tcc.uff.auth.server.model.web.RegisterForm;
 import tcc.uff.auth.server.model.web.TokenForm;
 import tcc.uff.auth.server.repository.auth.UserRepository;
 import tcc.uff.auth.server.service.interfaces.RegistrationService;
+import tcc.uff.auth.server.service.interfaces.TokenService;
 
 @Slf4j
 @Controller
@@ -23,6 +25,7 @@ public class RegisterController {
 
     private final UserRepository userRepository;
     private final RegistrationService registrationService;
+    private final TokenService tokenService;
 
     @GetMapping
     public String register(RegisterForm form) {
@@ -32,18 +35,22 @@ public class RegisterController {
     @PostMapping
     public String registerSubmit(@ModelAttribute @Valid RegisterForm form,
                                  BindingResult result,
-                                 Model model) {
+                                 Model model
+    ) {
 
         if (result.hasErrors()) {
             return "register";
         }
 
         if (!form.getPassword().equals(form.getPasswordConfirmation())) {
-            model.addAttribute("confirmationPasswordMatch", "Email não são iguais!");
+            model.addAttribute("confirmationPasswordMatch", "Senhas não são iguais!");
             return "register";
         }
 
         var user = userRepository.findByUsername(form.getEmail());
+
+        model.addAttribute("path", "register");
+        model.addAttribute("header", "Complete seu Cadastro");
 
         if (user.isPresent()) {
 
@@ -54,7 +61,8 @@ public class RegisterController {
                 model.addAttribute("tokenForm", new TokenForm());
                 model.addAttribute("email", form.getEmail());
                 model.addAttribute("notActive", true);
-                return "token-register";
+                tokenService.resendToken(form.getEmail());
+                return "token";
             }
         }
 
@@ -62,23 +70,26 @@ public class RegisterController {
 
         model.addAttribute("tokenForm", new TokenForm());
         model.addAttribute("email", form.getEmail());
-        return "token-register";
+        return "token";
     }
 
     @PostMapping("/token")
-    public String tokenValidation(@ModelAttribute @Valid TokenForm form,
+    public Object tokenValidation(@ModelAttribute @Valid TokenForm form,
                                   BindingResult result,
-                                  Model model) {
+                                  Model model
+    ) {
 
-        var confirmation = registrationService.confirmTokenByForm(form);
+        var confirmation = tokenService.confirmTokenByForm(form);
 
         if (Boolean.TRUE.equals(confirmation.getSuccess())) {
-            return "success-register";
+            return "success";
         }
 
+        model.addAttribute("header", "Complete seu Cadastro");
+        model.addAttribute("path", "register");
+        model.addAttribute("tokenForm", new TokenForm());
         model.addAttribute("validationException", confirmation.getErrorDescription());
         model.addAttribute("email", form.getEmail());
-        return "token-register";
-
+        return new ModelAndView("token", model.asMap());
     }
 }

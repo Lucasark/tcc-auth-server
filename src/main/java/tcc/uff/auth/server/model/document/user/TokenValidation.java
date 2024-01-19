@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.bson.types.ObjectId;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -17,7 +18,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class TokenValidation implements Serializable {
 
+    @Builder.Default
+    private ObjectId id = new ObjectId();
+
     private String value;
+
+    @Builder.Default
+    private LocalDateTime lastAttempt = LocalDateTime.now();
 
     private LocalDateTime expiryOn;
 

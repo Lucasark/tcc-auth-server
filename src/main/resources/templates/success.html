@@ -6,24 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aluno Presente</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" type="image/ico" th:href="@{favicon.ico}"/>
 </head>
 
 <body>
 <div class="pageContent">
     <div class="genericContainer">
-        <div class="error" th:if="${notActive}">
-            Já existe uma conta criada!
-        </div>
-        <h3>Complete seu registro</h3>
-        <form class="formContent" th:action="@{/register/token?email={email}(email=${email})}" th:object="${tokenForm}"
-              method="post">
-            <label for="input_token">Token:</label>
-            <input type="text" id="input_token" placeholder="XXXXX" class="inputText" name="token">
-            <span th:if="${validationException}" class="msgError" id="confirmation_error" th:text="${validationException}"></span>
-            <span th:if="${#fields.hasErrors('token')}" class="msgError" id="token_error" th:errors="*{token}"></span>
-            <br/>
+        <h3>Sucesso!</h3>
+        <form name="login" class="formContent">
             <div class="footerInfos">
-                <input class="loginBtn" type="submit" value="Validar!">
                 <a th:href="@{/login}">Voltar</a>
             </div>
         </form>
