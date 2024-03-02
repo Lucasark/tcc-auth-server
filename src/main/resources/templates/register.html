@@ -14,7 +14,7 @@
 <div class="pageContent">
     <div class="genericContainer">
         <h3>Nova conta</h3>
-        <form class="formContent" th:action="@{/register}" th:object="${registerForm}" method="post" onsubmit="submitForm()">
+        <form class="formContent" th:action="@{/register}" th:object="${registerForm}" id="submit" method="post" onsubmit="submitForm()">
             <label for="input_name">Nome:</label>
             <input type="text" id="input_name" placeholder="Aluno da Silva Ferreira" class="inputText" name="username">
             <span th:if="${#fields.hasErrors('username')}" class="msgError" id="username_error" th:errors="*{username}"></span>

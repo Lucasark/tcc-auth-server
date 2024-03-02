@@ -28,7 +28,7 @@
         Deslogado!
     </div>
     <p th:if="${loginError}" class="error">Wrong user or password</p>
-    <form class="formContent" th:action="@{/login}" method="post" onsubmit="submitForm()">
+    <form class="formContent" th:action="@{/login}" method="post" onsubmit="submitForm()" id="submit">
         <label for="input_email">E-mail</label>
         <input type="text" id="input_email" placeholder="email@id.uff.br" class="inputText" name="username">
 
@@ -36,11 +36,16 @@
         <input type="password" id="input_password" placeholder="Senha" class="inputText" name="password">
 
         <div class="footerInfos">
-            <input class="loginBtn" type="submit" value="Entrar"/>
+            <input class="loginBtn" type="submit" value="Entrar" id="actionButton"/>
             <a th:href="@{/password-recover}">Esqueci minha senha</a>
             <small>Não tem uma conta? <a th:href="@{/register}">Cadastrar!</a></small>
         </div>
     </form>
+    <div id="myModal" class="modal">
+        <div id="loading-container">
+            <div id="loading-indicator"></div>
+        </div>
+    </div>
 </div>
 
 <style th:inline="css" media="screen, print">
