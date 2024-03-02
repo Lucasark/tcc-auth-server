@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aluno Presente</title>
+    <script th:src="@{/js/document.js}"></script>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="icon" type="image/ico" th:href="@{favicon.ico}"/>
 </head>
@@ -27,7 +28,7 @@
         Deslogado!
     </div>
     <p th:if="${loginError}" class="error">Wrong user or password</p>
-    <form class="formContent" th:action="@{/login}" method="post">
+    <form class="formContent" th:action="@{/login}" method="post" onsubmit="submitForm()">
         <label for="input_email">E-mail</label>
         <input type="text" id="input_email" placeholder="email@id.uff.br" class="inputText" name="username">
 
