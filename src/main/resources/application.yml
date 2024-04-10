@@ -3,11 +3,11 @@ server:
   servlet:
     context-path: /v1/auth
 
-#logging:
-#  level:
-#    org:
-#      springframework:
-#        security: TRACE
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
 
 spring:
   data:

@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.core.OAuth2RefreshToken;
 import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
+import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames;
 import org.springframework.security.oauth2.server.authorization.OAuth2Authorization;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationCode;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
@@ -46,6 +47,17 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
         this.objectMapper.registerModule(new OAuth2AuthorizationServerJackson2Module());
     }
 
+    private static AuthorizationGrantType resolveAuthorizationGrantType(String authorizationGrantType) {
+        if (AuthorizationGrantType.AUTHORIZATION_CODE.getValue().equals(authorizationGrantType)) {
+            return AuthorizationGrantType.AUTHORIZATION_CODE;
+        } else if (AuthorizationGrantType.CLIENT_CREDENTIALS.getValue().equals(authorizationGrantType)) {
+            return AuthorizationGrantType.CLIENT_CREDENTIALS;
+        } else if (AuthorizationGrantType.REFRESH_TOKEN.getValue().equals(authorizationGrantType)) {
+            return AuthorizationGrantType.REFRESH_TOKEN;
+        }
+        return new AuthorizationGrantType(authorizationGrantType);              // Custom authorization grant type
+    }
+
     @Override
     public void save(OAuth2Authorization authorization) {
         Assert.notNull(authorization, "authorization cannot be null");
@@ -80,6 +92,8 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
             result = this.authorizationRepository.findByAccessTokenValue(token);
         } else if (OAuth2ParameterNames.REFRESH_TOKEN.equals(tokenType.getValue())) {
             result = this.authorizationRepository.findByRefreshTokenValue(token);
+        } else if (OidcParameterNames.ID_TOKEN.equals(tokenType.getValue())) {
+            result = this.authorizationRepository.findByOidcIdTokenValue(token);
         } else {
             result = Optional.empty();
         }
@@ -231,16 +245,5 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
         } catch (Exception ex) {
             throw new IllegalArgumentException(ex.getMessage(), ex);
         }
-    }
-
-    private static AuthorizationGrantType resolveAuthorizationGrantType(String authorizationGrantType) {
-        if (AuthorizationGrantType.AUTHORIZATION_CODE.getValue().equals(authorizationGrantType)) {
-            return AuthorizationGrantType.AUTHORIZATION_CODE;
-        } else if (AuthorizationGrantType.CLIENT_CREDENTIALS.getValue().equals(authorizationGrantType)) {
-            return AuthorizationGrantType.CLIENT_CREDENTIALS;
-        } else if (AuthorizationGrantType.REFRESH_TOKEN.getValue().equals(authorizationGrantType)) {
-            return AuthorizationGrantType.REFRESH_TOKEN;
-        }
-        return new AuthorizationGrantType(authorizationGrantType);              // Custom authorization grant type
     }
 }
