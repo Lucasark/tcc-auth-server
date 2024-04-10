@@ -63,6 +63,8 @@ public class JpaRegisteredClientRepository implements RegisteredClientRepository
                 client.getAuthorizationGrantTypes());
         Set<String> redirectUris = StringUtils.commaDelimitedListToSet(
                 client.getRedirectUris());
+        Set<String> postLogoutRedirectUris = StringUtils.commaDelimitedListToSet(
+                client.getPostLogoutRedirectUris());
         Set<String> clientScopes = StringUtils.commaDelimitedListToSet(
                 client.getScopes());
 
@@ -79,6 +81,7 @@ public class JpaRegisteredClientRepository implements RegisteredClientRepository
                         authorizationGrantTypes.forEach(grantType ->
                                 grantTypes.add(resolveAuthorizationGrantType(grantType))))
                 .redirectUris((uris) -> uris.addAll(redirectUris))
+                .postLogoutRedirectUris((uris) -> uris.addAll(postLogoutRedirectUris))
                 .scopes((scopes) -> scopes.addAll(clientScopes));
 
         Map<String, Object> clientSettingsMap = parseMap(client.getClientSettings());
