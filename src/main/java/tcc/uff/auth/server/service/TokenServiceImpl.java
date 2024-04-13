@@ -23,7 +23,7 @@ import static java.util.Objects.isNull;
 @RequiredArgsConstructor
 public class TokenServiceImpl implements TokenService {
     private static final String SUBJECT_REGISTRATION = "Concluir cadastro no Aluno Presente!";
-    private static final String SUBJECT_RECOVER = "Token para validar!";
+    private static final String SUBJECT_RECOVER = "Redefinição de senha!";
     private static final Integer ATTEMPT = 5;
 
     private final EmailService emailService;

@@ -24,9 +24,23 @@ public class EmailServiceImpl implements EmailService {
         message.setSubject(subject);
 
         String htmlContent = String.format(
-                " " +
-                        "<h1> Token de Confirmação </h1>" +
-                        "<p>Token: <strong> %s </strong> !</p>",
+                "<style>" +
+                        "    * {" +
+                        "        font-family: Arial, sans-serif;" +
+                        "    }" +
+                        "    img {" +
+                        "       width: 110px;" +
+                        "       height: 75px;" +
+                        "       margin-bottom: 8px;" +
+                        "    }" +
+                        "</style>" +
+                        "<div>" +
+                        "    <img src=\"https://authorization-server-d6ca554d3cbd.herokuapp.com/v1/auth/assets/images/logoBlue.png\" alt=\"Aluno Presente!\" width=\"110px\" height=\"75px\">" +
+                        "    <p>Bem-vindo ao <b>Aluno Presente!</b></p>" +
+                        "    <p>Para finalizar o processo, por favor, insira o código gerado:</p>" +
+                        "    <h3>%s</h3>" +
+                        "    <p>Se você não solicitou este código, por favor, ignore este e-mail.</p>" +
+                        "</div>",
                 token
         );
         message.setContent(htmlContent, "text/html; charset=utf-8");
