@@ -25,11 +25,11 @@
             <span th:if="${#fields.hasErrors('email')}" class="msgError" id="email_error" th:errors="*{email}"></span>
             <br/>
             <label for="input_password">Senha:</label>
-            <input type="password" id="input_password" placeholder="Senha123" class="inputText" name="password">
+            <input type="password" id="input_password" placeholder="Senha123*" class="inputText" name="password">
             <span th:if="${#fields.hasErrors('password')}" class="msgError" id="password_error" th:errors="*{password}"></span>
             <br/>
             <label for="input_confirmation_password">Confirmar senha:</label>
-            <input type="password" id="input_confirmation_password" placeholder="Senha123" class="inputText" name="passwordConfirmation">
+            <input type="password" id="input_confirmation_password" placeholder="Senha123*" class="inputText" name="passwordConfirmation">
             <span th:if="${confirmationPasswordMatch}" class="msgError" id="confirmation_password_error_conflito" th:text="${confirmationPasswordMatch}"></span>
             <span th:if="${#fields.hasErrors('passwordConfirmation')}" class="msgError" id="confirmation_password_error" th:errors="*{passwordConfirmation}"></span>
             <br/>
@@ -40,7 +40,12 @@
 
             <div id="myModal" class="modal">
                 <div id="loading-container">
-                    <div id="loading-indicator"></div>
+                    <img alt="logo" width="100px" th:src="@{/assets/images/logoSmall.png}"/>
+                    <div class="bubbles">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
                 </div>
             </div>
         </form>

@@ -192,18 +192,17 @@ h1, h3 {
     font-weight: 500;
 }
 
+.genericContainer p {
+    color: rgb(47, 65, 83);
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+}
+
 #loading-container {
     display: none;
     text-align: center;
-}
-
-#loading-indicator {
-    border: 8px solid #f3f3f3;
-    border-top: 8px solid #3498db;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
@@ -214,6 +213,42 @@ h1, h3 {
         transform: rotate(360deg);
     }
 }
+
+.bubbles {
+    display: flex;
+    justify-content: space-between;
+    width: 120px;
+}
+
+.bubble {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: rgb(47, 65, 83);
+    animation: bubble-scale 1s ease-in-out infinite;
+}
+
+@keyframes bubble-scale {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+}
+
+.bubble:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.bubble:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.bubble:nth-child(3) {
+    animation-delay: 1s;
+}
+
 
 #actionButton {
     cursor: pointer;
@@ -232,7 +267,37 @@ h1, h3 {
     transform: translate(-50%, -50%);
     background-color: #fefefe;
     padding: 20px;
-    border: 1px solid #ccc;
+    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1;
 }
+
+.checkBoxContainer {
+    width: 100%;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    margin-top: ;
+}
+
+.checkBoxContainer p {
+    font-size: x-small;
+    width: 100%;
+    display: flex;
+    text-align: left;
+    margin-top: -3px;
+}
+
+.consentBtnGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 100px;
+}
+
+.consentBtnGroup a {
+    color: rgb(47, 65, 83);
+}
+

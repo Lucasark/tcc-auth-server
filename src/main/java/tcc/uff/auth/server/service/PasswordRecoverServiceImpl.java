@@ -25,7 +25,7 @@ import static java.util.Objects.nonNull;
 @RequiredArgsConstructor
 public class PasswordRecoverServiceImpl implements PasswordRecoverService {
 
-    private static final String SUBJECT = "Token para validar!";
+    private static final String SUBJECT = "Redefinição de senha!";
 
     private final EmailService emailService;
     private final UserRepository userRepository;
