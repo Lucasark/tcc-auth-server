@@ -33,6 +33,7 @@
             <span th:if="${confirmationPasswordMatch}" class="msgError" id="confirmation_password_error_conflito" th:text="${confirmationPasswordMatch}"></span>
             <span th:if="${#fields.hasErrors('passwordConfirmation')}" class="msgError" id="confirmation_password_error" th:errors="*{passwordConfirmation}"></span>
             <br/>
+            <p>Ao criar sua conta, você concorda com os nossos <a class="termsA" href="https://alunopresente.vercel.app/terms">termos</a> e <a class="termsA" href="https://alunopresente.vercel.app/policy">políticas de privacidade</a>.</p>
             <div class="footerInfos">
                 <input class="loginBtn" type="submit" value="Cadastrar" id="actionButton">
                 <a th:href="@{/login}">Voltar</a>
