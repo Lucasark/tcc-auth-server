@@ -147,6 +147,10 @@ h1, h3 {
     margin-top: 15px;
 }
 
+.termsA {
+    color: rgb(47, 65, 83);
+}
+
 .footerInfos small {
     font-size: 14px;
     color: rgb(47, 65, 83);
